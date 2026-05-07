@@ -1,0 +1,161 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<style>
+    .page-container {
+        max-width: 900px;
+        margin: 0 auto;
+    }
+    .page-title {
+        font-size: 28px;
+        color: #2c3e6b;
+        margin-bottom: 20px;
+    }
+    .project-card {
+        background: white;
+        padding: 30px;
+        border-radius: 20px;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+    }
+    .project-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 15px;
+        gap: 12px;
+        flex-wrap: wrap;
+    }
+    .project-name {
+        font-size: 24px;
+        font-weight: 700;
+        color: #2d3559;
+        margin: 0;
+    }
+    .project-badge {
+        background: #eef0ff;
+        color: #5b6cff;
+        padding: 6px 14px;
+        border-radius: 20px;
+        font-size: 13px;
+        font-weight: 500;
+    }
+    .divider {
+        height: 1px;
+        background: #eee;
+        margin: 15px 0 20px;
+    }
+    .section-title {
+        display: block;
+        font-weight: 600;
+        margin-bottom: 10px;
+        color: #555;
+    }
+    .requirements-box {
+        background: #f5f7ff;
+        padding: 20px;
+        border-radius: 12px;
+        line-height: 1.7;
+        color: #444;
+    }
+    .meta-grid {
+        display: flex;
+        gap: 15px;
+        margin-bottom: 20px;
+        flex-wrap: wrap;
+    }
+    .meta-box {
+        background: #f5f7ff;
+        padding: 10px 16px;
+        border-radius: 10px;
+        min-width: 150px;
+    }
+    .meta-label {
+        color: #777;
+        font-size: 13px;
+        display: block;
+        margin-bottom: 3px;
+    }
+    .meta-value {
+        font-weight: 600;
+        color: #2d3559;
+    }
+    .actions-row {
+        margin-top: 24px;
+        display: flex;
+        gap: 12px;
+        flex-wrap: wrap;
+    }
+    .btn-primary {
+        display: inline-block;
+        padding: 12px 22px;
+        border: none;
+        border-radius: 12px;
+        background: #2c3e6b;
+        color: white;
+        cursor: pointer;
+        text-decoration: none;
+        font-weight: 600;
+    }
+    .btn-secondary {
+        display: inline-block;
+        padding: 12px 22px;
+        border-radius: 12px;
+        background: #eef3ff;
+        color: #2c3e6b;
+        text-decoration: none;
+        font-weight: 600;
+    }
+</style>
+
+<div class="page-container">
+    <h2 class="page-title">Project Details</h2>
+
+    <div class="project-card">
+        <div class="project-header">
+            <h3 class="project-name">{{ project.name }}</h3>
+            <span class="project-badge">{{ project.project_type.name }}</span>
+        </div>
+
+        <div class="divider"></div>
+
+        {% if project.project_type.innovation %}
+        <div class="meta-grid">
+            <div class="meta-box">
+                <span class="meta-label">Innovation</span>
+                <span class="meta-value">{{ project.project_type.innovation }}</span>
+            </div>
+
+            <div class="meta-box">
+                <span class="meta-label">Risk</span>
+                <span class="meta-value">{{ project.project_type.risk }}</span>
+            </div>
+
+            <div class="meta-box">
+                <span class="meta-label">ROI Horizon</span>
+                <span class="meta-value">{{ project.project_type.roi_horizon }}</span>
+            </div>
+        </div>
+        {% endif %}
+
+        <div class="requirements-box">
+            <span class="section-title">Business Requirement</span>
+            <p style="margin:0;">{{ project.business_requirements }}</p>
+        </div>
+
+        <div class="actions-row">
+            <form method="post" action="{% url 'run_pipeline_for_project' project.id %}" style="margin:0;">
+                {% csrf_token %}
+                <button type="submit" class="btn-primary">
+                    Run Full Pipeline
+                </button>
+            </form>
+
+            {% if latest_br %}
+            <a href="{% url 'combined_schedule' latest_br.br_id %}" class="btn-secondary">
+                Open Latest Scheduling Result
+            </a>
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% endblock %}

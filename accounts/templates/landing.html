@@ -1,0 +1,40 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>PlanWise Login</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}?v=9">
+</head>
+
+<body>
+
+    <div class="login-wrapper">
+
+        <div class="right-visual">
+            <img src="{% static 'images/ai_planning.PNG' %}" alt="PlanWise">
+        </div>
+
+        <div class="login-card">
+            <div class="login-title">Login</div>
+            <div class="login-sub">Welcome to PlanWise</div>
+
+            <form method="post">
+                {% csrf_token %}
+
+                <input class="login-input" type="text" name="username" placeholder="Username">
+                <input class="login-input" type="password" name="password" placeholder="Password">
+
+                {% if error %}
+                <p class="error-msg">{{ error }}</p>
+                {% endif %}
+
+                <button class="login-btn" type="submit">Login</button>
+            </form>
+        </div>
+
+    </div>
+
+</body>
+
+</html>

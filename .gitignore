@@ -1,0 +1,8 @@
+pretrained_models/
+Clean Data/
+db.sqlite3
+venv/
+__pycache__/
+*.pyc
+media/
+*.sqlite3

@@ -1,0 +1,77 @@
+body {
+    margin: 0;
+    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+    min-height: 100vh;
+    position: relative;
+    overflow: hidden;
+
+    background: linear-gradient(
+        180deg,
+        #f8fbff 0%,
+        #eef3ff 40%,
+        #f8fbff 100%
+    );
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.home-container {
+    text-align: center;
+    position: relative;
+    z-index: 1;
+}
+
+.home-title {
+    font-size: 28px;
+    color: #2f3a5a;
+    margin-bottom: 45px;
+
+    text-align: center;
+    max-width: 900px;
+    margin-left: auto;
+    margin-right: auto;
+    line-height: 1.4;
+}
+
+.cards {
+    display: grid;
+    grid-template-columns: repeat(5, 190px);
+    gap: 30px;
+    justify-content: center;
+}
+
+.card {
+    background: #ffffff;
+    border-radius: 18px;
+    padding: 28px 20px;
+    text-decoration: none;
+    color: #2f3a5a;
+    box-shadow: 0 12px 28px rgba(0,0,0,0.08);
+    transition: 0.25s;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.card img {
+    width: 85px;
+    margin-bottom: 14px;
+}
+
+.card span {
+    display: block;
+    font-weight: 600;
+    font-size: 16px;
+    text-align: center;
+    margin-top: 6px;
+}
+
+.card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 20px 40px rgba(0,0,0,0.12);
+    background: linear-gradient(180deg,#ffffff,#f3f6ff);
+}

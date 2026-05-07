@@ -1,0 +1,80 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div style="background:white; padding:30px; border-radius:20px; box-shadow:0 6px 20px rgba(0,0,0,0.06); max-width:1100px; margin:0 auto;">
+    <h2 style="margin-bottom:20px; color:#2c3e6b; font-size:32px; font-weight:700;">Model 1 Report</h2>
+
+    <div style="margin-top:25px; padding:20px; background:#f8fbff; border-radius:16px; font-size:18px; line-height:1.8; color:#2d3559;">
+        <p><strong>Model type:</strong> Pretrained Transformer (Flan-T5)</p>
+        <p><strong>Task:</strong> Business Requirement to System Requirements</p>
+        <p><strong>Runtime mode:</strong> Pretrained execution only</p>
+    </div>
+
+    {% if sample_input %}
+    <div style="margin-top:35px;">
+        <h4 style="margin-bottom:14px; color:#2c3e6b; font-size:24px; font-weight:700;">Sample Input</h4>
+        <div style="overflow-x:auto;">
+            <table style="width:100%; border-collapse:collapse; font-size:15px;">
+                <thead>
+                    <tr style="background:#2c3e6b; color:white;">
+                        <th style="padding:12px 16px; text-align:left;">BR ID</th>
+                        <th style="padding:12px 16px; text-align:left;">Business Requirement</th>
+                        <th style="padding:12px 16px; text-align:left;">Task Type</th>
+                        <th style="padding:12px 16px; text-align:left;">Task Subtype</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for br in sample_input %}
+                    <tr style="background:{% cycle '#f8fbff' 'white' %};">
+                        <td style="padding:12px 16px; color:#2d3559;">{{ br.br_id }}</td>
+                        <td style="padding:12px 16px; color:#2d3559;">{{ br.text|truncatechars:120 }}</td>
+                        <td style="padding:12px 16px; color:#2d3559;">{{ br.primary_task_type }}</td>
+                        <td style="padding:12px 16px; color:#2d3559;">{{ br.primary_task_subtype }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+    {% endif %}
+
+    {% if loss_plot_url %}
+    <div style="margin-top:35px;">
+        <h4 style="margin-bottom:14px; color:#2c3e6b; font-size:24px; font-weight:700;">Loss Curve</h4>
+        <img src="{{ loss_plot_url }}" alt="Model 1 Loss Curve"
+             style="display:block; width:100%; max-width:1000px; margin:0 auto; border-radius:14px;">
+    </div>
+    {% endif %}
+
+    {% if sample_output %}
+    <div style="margin-top:35px;">
+        <h4 style="margin-bottom:14px; color:#2c3e6b; font-size:24px; font-weight:700;">Sample Output</h4>
+        <div style="overflow-x:auto;">
+            <table style="width:100%; border-collapse:collapse; font-size:15px;">
+                <thead>
+                    <tr style="background:#2c3e6b; color:white;">
+                        <th style="padding:12px 16px; text-align:left;">SR ID</th>
+                        <th style="padding:12px 16px; text-align:left;">System Requirement</th>
+                        <th style="padding:12px 16px; text-align:left;">Task Type</th>
+                        <th style="padding:12px 16px; text-align:left;">Required Experience</th>
+                        <th style="padding:12px 16px; text-align:left;">Uncertainty</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for sr in sample_output %}
+                    <tr style="background:{% cycle '#f8fbff' 'white' %};">
+                        <td style="padding:12px 16px; color:#2d3559;">{{ sr.system_req_id }}</td>
+                        <td style="padding:12px 16px; color:#2d3559;">{{ sr.task_subtype }}</td>
+                        <td style="padding:12px 16px; color:#2d3559;">{{ sr.task_type }}</td>
+                        <td style="padding:12px 16px; color:#2d3559;">{{ sr.required_experience_level }}</td>
+                        <td style="padding:12px 16px; color:#2d3559;">{{ sr.uncertainty }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+    {% endif %}
+
+</div>
+{% endblock %}

@@ -1,0 +1,68 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div style="display:grid; gap:24px;">
+
+    <div style="background:white; padding:30px; border-radius:20px; box-shadow:0 6px 20px rgba(0,0,0,0.06);">
+        <h2 style="margin-bottom:10px; color:#2c3e6b;">AI Dashboard</h2>
+        <p style="color:#555; margin-bottom:18px;">
+            These pages are for pretrained model reports and technical explanation only.
+            The official user flow starts from Projects.
+        </p>
+
+        <a href="{% url 'projects' %}"
+           style="display:inline-block; padding:10px 16px; background:#2c3e6b; color:white; text-decoration:none; border-radius:10px;">
+            Go to Projects
+        </a>
+    </div>
+
+    <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(280px, 1fr)); gap:20px;">
+
+        <div style="background:white; padding:24px; border-radius:18px; box-shadow:0 6px 20px rgba(0,0,0,0.06);">
+            <h3 style="margin-bottom:10px; color:#2c3e6b;">Model 1</h3>
+            <p style="margin-bottom:14px; color:#555;">BR to SR pretrained model</p>
+            <a href="{% url 'model1_train' %}"
+               style="padding:10px 16px; background:#2c3e6b; color:white; text-decoration:none; border-radius:10px;">
+                Open Report
+            </a>
+        </div>
+
+        <div style="background:white; padding:24px; border-radius:18px; box-shadow:0 6px 20px rgba(0,0,0,0.06);">
+            <h3 style="margin-bottom:10px; color:#2c3e6b;">Model 2</h3>
+            <p style="margin-bottom:14px; color:#555;">Employee Experience Estimation</p>
+            <a href="{% url 'model2_train' %}"
+               style="padding:10px 16px; background:#2c3e6b; color:white; text-decoration:none; border-radius:10px;">
+                Open Report
+            </a>
+        </div>
+
+        <div style="background:white; padding:24px; border-radius:18px; box-shadow:0 6px 20px rgba(0,0,0,0.06);">
+            <h3 style="margin-bottom:10px; color:#2c3e6b;">Model 3</h3>
+            <p style="margin-bottom:14px; color:#555;">Subtask Relationship Classifier</p>
+            <a href="{% url 'model3_train' %}"
+               style="padding:10px 16px; background:#2c3e6b; color:white; text-decoration:none; border-radius:10px;">
+                Open Report
+            </a>
+        </div>
+
+        <div style="background:white; padding:24px; border-radius:18px; box-shadow:0 6px 20px rgba(0,0,0,0.06);">
+            <h3 style="margin-bottom:10px; color:#2c3e6b;">Model 4</h3>
+            <p style="margin-bottom:14px; color:#555;">GAT2 Criticality Scoring</p>
+            <a href="{% url 'model4_train' %}"
+               style="padding:10px 16px; background:#2c3e6b; color:white; text-decoration:none; border-radius:10px;">
+                Open Report
+            </a>
+        </div>
+
+        <div style="background:white; padding:24px; border-radius:18px; box-shadow:0 6px 20px rgba(0,0,0,0.06);">
+            <h3 style="margin-bottom:10px; color:#2c3e6b;">Model 5</h3>
+            <p style="margin-bottom:14px; color:#555;">GAT1 Final Assignment Model</p>
+            <a href="{% url 'model5_train' %}"
+               style="padding:10px 16px; background:#2c3e6b; color:white; text-decoration:none; border-radius:10px;">
+                Open Report
+            </a>
+        </div>
+
+    </div>
+</div>
+{% endblock %}

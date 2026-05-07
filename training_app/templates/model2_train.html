@@ -1,0 +1,88 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div style="background:white; padding:30px; border-radius:20px; box-shadow:0 6px 20px rgba(0,0,0,0.06); max-width:1100px; margin:0 auto;">
+    <h2 style="margin-bottom:20px; color:#2c3e6b; font-size:32px; font-weight:700;">Model 2 Report</h2>
+
+    <div style="margin-top:25px; padding:20px; background:#f8fbff; border-radius:16px; font-size:18px; line-height:1.8; color:#2d3559;">
+        <p><strong>Model type:</strong> Pretrained DNN</p>
+        <p><strong>Task:</strong> Employee Experience Estimation</p>
+        <p><strong>Runtime mode:</strong> Pretrained execution only</p>
+    </div>
+
+    {% if sample_input %}
+    <div style="margin-top:35px;">
+        <h4 style="margin-bottom:14px; color:#2c3e6b; font-size:24px; font-weight:700;">Sample Input</h4>
+        <div style="overflow-x:auto;">
+            <table style="width:100%; border-collapse:collapse; font-size:15px;">
+                <thead>
+                    <tr style="background:#2c3e6b; color:white;">
+                        <th style="padding:12px 16px; text-align:left;">Employee ID</th>
+                        <th style="padding:12px 16px; text-align:left;">Task</th>
+                        <th style="padding:12px 16px; text-align:left;">Subtask</th>
+                        <th style="padding:12px 16px; text-align:left;">Avg Duration (hrs)</th>
+                        <th style="padding:12px 16px; text-align:left;">Avg Defects</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for row in sample_input %}
+                    <tr style="background:{% cycle '#f8fbff' 'white' %};">
+                        <td style="padding:12px 16px; color:#2d3559;">{{ row.employee.employee_id }}</td>
+                        <td style="padding:12px 16px; color:#2d3559;">{{ row.task.task_type }}</td>
+                        <td style="padding:12px 16px; color:#2d3559;">{{ row.task.name }}</td>
+                        <td style="padding:12px 16px; color:#2d3559;">{{ row.working_hours }}</td>
+                        <td style="padding:12px 16px; color:#2d3559;">{{ row.defects }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+    {% endif %}
+
+    {% if loss_plot_url %}
+    <div style="margin-top:35px;">
+        <h4 style="margin-bottom:14px; color:#2c3e6b; font-size:24px; font-weight:700;">Loss Curve</h4>
+        <img src="{{ loss_plot_url }}" alt="Model 2 Loss Curve"
+             style="display:block; width:100%; max-width:1000px; margin:0 auto; border-radius:14px;">
+    </div>
+    {% endif %}
+
+    {% if test_accuracy_url %}
+    <div style="margin-top:35px;">
+        <h4 style="margin-bottom:14px; color:#2c3e6b; font-size:24px; font-weight:700;">Test Accuracy</h4>
+        <img src="{{ test_accuracy_url }}" alt="Model 2 Test Accuracy"
+             style="display:block; width:100%; max-width:1000px; margin:0 auto; border-radius:14px;">
+    </div>
+    {% endif %}
+
+    {% if sample_output %}
+    <div style="margin-top:35px;">
+        <h4 style="margin-bottom:14px; color:#2c3e6b; font-size:24px; font-weight:700;">Sample Output</h4>
+        <div style="overflow-x:auto;">
+            <table style="width:100%; border-collapse:collapse; font-size:15px;">
+                <thead>
+                    <tr style="background:#2c3e6b; color:white;">
+                        <th style="padding:12px 16px; text-align:left;">Employee ID</th>
+                        <th style="padding:12px 16px; text-align:left;">Task</th>
+                        <th style="padding:12px 16px; text-align:left;">Sub Task</th>
+                        <th style="padding:12px 16px; text-align:left;">Predicted Experience Level</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for row in sample_output %}
+                    <tr style="background:{% cycle '#f8fbff' 'white' %};">
+                        <td style="padding:12px 16px; color:#2d3559;">{{ row.employee_id }}</td>
+                        <td style="padding:12px 16px; color:#2d3559;">{{ row.task }}</td>
+                        <td style="padding:12px 16px; color:#2d3559;">{{ row.sub_task }}</td>
+                        <td style="padding:12px 16px; color:#2d3559;">{{ row.predicted_experience_level }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+    {% endif %}
+
+</div>
+{% endblock %}

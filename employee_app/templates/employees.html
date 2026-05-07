@@ -1,0 +1,183 @@
+{% extends "base.html" %}
+
+{% block content %}
+<style>
+    .employees-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 30px;
+        flex-wrap: wrap;
+        gap: 15px;
+    }
+    .page-title {
+        font-size: 28px;
+        color: #2c3e6b;
+        margin: 0;
+    }
+    .search-area {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+    }
+    .search-box {
+        background: white;
+        padding: 12px 18px;
+        border: 1px solid #e5e5e5;
+        border-radius: 20px;
+        font-size: 14px;
+        width: 220px;
+        outline: none;
+    }
+    .sort-dropdown {
+        position: relative;
+    }
+    .sort-btn {
+        width: 42px;
+        height: 42px;
+        border: none;
+        border-radius: 12px;
+        background: white;
+        cursor: pointer;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+        font-size: 18px;
+    }
+    .sort-menu {
+        display: none;
+        position: absolute;
+        top: 50px;
+        right: 0;
+        background: white;
+        border-radius: 14px;
+        box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+        padding: 8px;
+        min-width: 160px;
+        z-index: 1000;
+    }
+    .sort-menu button {
+        display: block;
+        width: 100%;
+        padding: 10px 12px;
+        border: none;
+        background: white;
+        text-align: left;
+        border-radius: 10px;
+        cursor: pointer;
+        font-size: 14px;
+        color: #333;
+    }
+    .sort-menu button:hover {
+        background: #f2f4ff;
+    }
+
+    .employee-table {
+        width: 100%;
+    }
+    .table-header,
+    .employee-row {
+        display: grid;
+        grid-template-columns: 2fr 1fr 1fr 1fr;
+        align-items: center;
+        justify-items: center;
+        padding: 15px 20px;
+        margin-bottom: 15px;
+        border-radius: 20px;
+    }
+    .table-header {
+        background: #f2f3f7;
+        color: #6b7280;
+        font-weight: 500;
+    }
+    .table-header span:first-child {
+        justify-self: start;
+    }
+    .employee-row {
+        background: white;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        cursor: pointer;
+        transition: 0.2s;
+    }
+    .employee-row:hover {
+        background: #f5f7ff;
+        transform: scale(1.01);
+    }
+    .employee-name {
+        justify-self: start;
+        display: flex;
+        align-items: center;
+        gap: 12px;
+    }
+    .avatar {
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        background: #4a6cf7;
+        color: white;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: bold;
+    }
+    .experience,
+    .defects {
+        background: #e7ecff;
+        padding: 5px 12px;
+        border-radius: 10px;
+        width: fit-content;
+    }
+</style>
+
+<div class="employees-header">
+    <h2 class="page-title">Employees</h2>
+    <div class="search-area">
+        <form method="GET" style="display:flex; gap:10px; align-items:center;">
+            <input type="text" name="q" placeholder="Search employees..." class="search-box" value="{{ query }}">
+            <div class="sort-dropdown">
+                <button type="button" class="sort-btn" onclick="toggleSortMenu()">↕</button>
+                <div id="sortMenu" class="sort-menu">
+                    <button type="submit" name="sort" value="name">A → Z</button>
+                    <button type="submit" name="sort" value="defects">Lowest Defects</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+<div class="employee-table">
+    <div class="table-header">
+        <span>Name</span>
+        <span>Experience</span>
+        <span>Hours</span>
+        <span>Defects</span>
+    </div>
+    {% for employee in employees %}
+    <div class="employee-row" onclick="window.location.href='{% url 'employee_detail' employee.id %}'">
+        <div class="employee-name">
+            <div class="avatar">{{ employee.name|slice:":1" }}</div>
+            <span>{{ employee.name }}</span>
+        </div>
+        <span class="experience">{{ employee.experience }}</span>
+        <span>{{ employee.hours }}</span>
+        <span class="defects">{{ employee.defects }}</span>
+    </div>
+    {% endfor %}
+</div>
+
+<script>
+    function toggleSortMenu() {
+        const menu = document.getElementById("sortMenu");
+        if (menu.style.display === "block") {
+            menu.style.display = "none";
+        } else {
+            menu.style.display = "block";
+        }
+    }
+    window.addEventListener("click", function(event) {
+        const menu = document.getElementById("sortMenu");
+        const button = document.querySelector(".sort-btn");
+        if (menu && !menu.contains(event.target) && !button.contains(event.target)) {
+            menu.style.display = "none";
+        }
+    });
+</script>
+{% endblock %}

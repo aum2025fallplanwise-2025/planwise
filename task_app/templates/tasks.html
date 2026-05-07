@@ -1,0 +1,78 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<style>
+    .page-container {
+        max-width: 850px;
+        margin: 0 auto;
+    }
+    .tasks-top-bar {
+        display: flex;
+        justify-content: flex-start;
+        align-items: center;
+        margin-bottom: 12px;
+    }
+    .page-title {
+        font-size: 32px;
+        font-weight: 700;
+        color: #2d3559;
+    }
+    .task-table {
+        width: 100%;
+        margin-top: 10px;
+    }
+    .task-header,
+    .task-row {
+        display: grid;
+        grid-template-columns: 1fr 270px;
+        align-items: center;
+        column-gap: 40px;
+        padding: 18px 24px;
+        border-radius: 18px;
+        margin-bottom: 14px;
+        box-sizing: border-box;
+    }
+    .task-header {
+        color: #666;
+        font-weight: 600;
+        background: #f2f3f7;
+    }
+    .task-row {
+        background: white;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.04);
+        cursor: pointer;
+        transition: 0.2s;
+    }
+    .task-row:hover {
+        background: #f5f7ff;
+        transform: scale(1.01);
+    }
+    .task-name {
+        color: #2d3559;
+        font-weight: 500;
+        text-align: left;
+    }
+    .task-type {
+        color: #444;
+        text-align: left;
+    }
+</style>
+
+<div class="page-container">
+    <div class="tasks-top-bar">
+        <h2 class="page-title">Tasks</h2>
+    </div>
+    <div class="task-table">
+        <div class="task-header">
+            <span>Task Name</span>
+            <span>Task Type</span>
+        </div>
+        {% for task in tasks %}
+        <div class="task-row" onclick="window.location.href='/tasks/{{ task.id }}/'">
+            <span class="task-name">{{ task.name }}</span>
+            <span class="task-type">{{ task.task_type }}</span>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

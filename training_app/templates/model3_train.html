@@ -1,0 +1,92 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div style="background:white; padding:30px; border-radius:20px; box-shadow:0 6px 20px rgba(0,0,0,0.06); max-width:1100px; margin:0 auto;">
+    <h2 style="margin-bottom:20px; color:#2c3e6b; font-size:32px; font-weight:700;">Model 3 Report</h2>
+
+    <div style="margin-top:25px; padding:20px; background:#f8fbff; border-radius:16px; font-size:18px; line-height:1.8; color:#2d3559;">
+        <p><strong>Model type:</strong> Pretrained DNN Classifier</p>
+        <p><strong>Task:</strong> Subtask Relationship Classification</p>
+        <p><strong>Runtime mode:</strong> Uses runtime pairs from Model 1 output</p>
+    </div>
+
+    {% if sample_input %}
+    <div style="margin-top:35px;">
+        <h4 style="margin-bottom:14px; color:#2c3e6b; font-size:24px; font-weight:700;">Sample Input</h4>
+        <div style="overflow-x:auto;">
+            <table style="width:100%; border-collapse:collapse; font-size:15px;">
+                <thead>
+                    <tr style="background:#2c3e6b; color:white;">
+                        <th style="padding:12px 16px; text-align:left;">BR ID</th>
+                        <th style="padding:12px 16px; text-align:left;">Subtask A</th>
+                        <th style="padding:12px 16px; text-align:left;">Subtask B</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for row in sample_input %}
+                    <tr style="background:{% cycle '#f8fbff' 'white' %};">
+                        <td style="padding:12px 16px; color:#2d3559;">{{ row.br_id }}</td>
+                        <td style="padding:12px 16px; color:#2d3559;">{{ row.subtask_a }}</td>
+                        <td style="padding:12px 16px; color:#2d3559;">{{ row.subtask_b }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+    {% endif %}
+
+    {% if loss_plot_url %}
+    <div style="margin-top:35px;">
+        <h4 style="margin-bottom:14px; color:#2c3e6b; font-size:24px; font-weight:700;">Loss Curve</h4>
+        <img src="{{ loss_plot_url }}" alt="Model 3 Loss Curve"
+             style="display:block; width:100%; max-width:1000px; margin:0 auto; border-radius:14px;">
+    </div>
+    {% endif %}
+
+    {% if acc_plot_url %}
+    <div style="margin-top:35px;">
+        <h4 style="margin-bottom:14px; color:#2c3e6b; font-size:24px; font-weight:700;">Accuracy Curve</h4>
+        <img src="{{ acc_plot_url }}" alt="Model 3 Accuracy Curve"
+             style="display:block; width:100%; max-width:1000px; margin:0 auto; border-radius:14px;">
+    </div>
+    {% endif %}
+
+    {% if classification_report_url %}
+    <div style="margin-top:35px;">
+        <h4 style="margin-bottom:14px; color:#2c3e6b; font-size:24px; font-weight:700;">Classification Report</h4>
+        <img src="{{ classification_report_url }}" alt="Model 3 Classification Report"
+             style="display:block; width:100%; max-width:1000px; margin:0 auto; border-radius:14px;">
+    </div>
+    {% endif %}
+
+    {% if sample_output %}
+    <div style="margin-top:35px;">
+        <h4 style="margin-bottom:14px; color:#2c3e6b; font-size:24px; font-weight:700;">Sample Output</h4>
+        <div style="overflow-x:auto;">
+            <table style="width:100%; border-collapse:collapse; font-size:15px;">
+                <thead>
+                    <tr style="background:#2c3e6b; color:white;">
+                        <th style="padding:12px 16px; text-align:left;">Subtask A</th>
+                        <th style="padding:12px 16px; text-align:left;">Subtask B</th>
+                        <th style="padding:12px 16px; text-align:left;">Predicted Relationship</th>
+                        <th style="padding:12px 16px; text-align:left;">Confidence</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for row in sample_output %}
+                    <tr style="background:{% cycle '#f8fbff' 'white' %};">
+                        <td style="padding:12px 16px; color:#2d3559;">{{ row.subtask_a }}</td>
+                        <td style="padding:12px 16px; color:#2d3559;">{{ row.subtask_b }}</td>
+                        <td style="padding:12px 16px; color:#2d3559;">{{ row.predicted_relationship }}</td>
+                        <td style="padding:12px 16px; color:#2d3559;">{{ row.confidence|floatformat:4 }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+    {% endif %}
+
+</div>
+{% endblock %}

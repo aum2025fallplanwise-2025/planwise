@@ -1,0 +1,109 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div style="display:grid; gap:24px;">
+
+    <div style="background:white; padding:24px; border-radius:20px; box-shadow:0 6px 20px rgba(0,0,0,0.06);">
+        <h2 style="margin-bottom:10px; color:#2c3e6b;">Final Scheduling Result</h2>
+        <p><strong>BR ID:</strong> {{ br_id }}</p>
+    </div>
+
+    <div style="background:white; padding:30px; border-radius:20px; box-shadow:0 6px 20px rgba(0,0,0,0.06);">
+        <h2 style="margin-bottom:20px; color:#2c3e6b;">Final Assignment Table (GAT1)</h2>
+
+        <table style="width:100%; border-collapse:collapse;">
+            <thead>
+                <tr>
+                    <th style="text-align:left; padding:10px; border-bottom:1px solid #ddd;">Employee ID</th>
+                    <th style="text-align:left; padding:10px; border-bottom:1px solid #ddd;">Employee Name</th>
+                    <th style="text-align:left; padding:10px; border-bottom:1px solid #ddd;">Subtask ID</th>
+                    <th style="text-align:left; padding:10px; border-bottom:1px solid #ddd;">Subtask Name</th>
+                    <th style="text-align:left; padding:10px; border-bottom:1px solid #ddd;">Cost</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for row in assignment_table %}
+                <tr>
+                    <td style="padding:10px; border-bottom:1px solid #eee;">{{ row.employee_id }}</td>
+                    <td style="padding:10px; border-bottom:1px solid #eee;">{{ row.employee_name }}</td>
+                    <td style="padding:10px; border-bottom:1px solid #eee;">{{ row.subtask_id }}</td>
+                    <td style="padding:10px; border-bottom:1px solid #eee;">{{ row.subtask_name }}</td>
+                    <td style="padding:10px; border-bottom:1px solid #eee;">{{ row.cost }}</td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <td colspan="5" style="padding:10px; color:#777;">No assignments found.</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    <div style="background:white; padding:30px; border-radius:20px; box-shadow:0 6px 20px rgba(0,0,0,0.06);">
+        <h2 style="margin-bottom:20px; color:#2c3e6b;">Critical Subtasks Mapped to Assigned Employees</h2>
+
+        <table style="width:100%; border-collapse:collapse;">
+            <thead>
+                <tr>
+                    <th style="text-align:left; padding:10px; border-bottom:1px solid #ddd;">Subtask</th>
+                    <th style="text-align:left; padding:10px; border-bottom:1px solid #ddd;">Critical Score</th>
+                    <th style="text-align:left; padding:10px; border-bottom:1px solid #ddd;">In Degree</th>
+                    <th style="text-align:left; padding:10px; border-bottom:1px solid #ddd;">Out Degree</th>
+                    <th style="text-align:left; padding:10px; border-bottom:1px solid #ddd;">Assigned Employee</th>
+                    <th style="text-align:left; padding:10px; border-bottom:1px solid #ddd;">Assignment Cost</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for row in critical_mapping %}
+                <tr>
+                    <td style="padding:10px; border-bottom:1px solid #eee;">{{ row.subtask_name }}</td>
+                    <td style="padding:10px; border-bottom:1px solid #eee;">{{ row.predicted_score }}</td>
+                    <td style="padding:10px; border-bottom:1px solid #eee;">{{ row.in_degree }}</td>
+                    <td style="padding:10px; border-bottom:1px solid #eee;">{{ row.out_degree }}</td>
+                    <td style="padding:10px; border-bottom:1px solid #eee;">{{ row.assigned_employee_id }}</td>
+                    <td style="padding:10px; border-bottom:1px solid #eee;">{{ row.assignment_cost }}</td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <td colspan="6" style="padding:10px; color:#777;">No critical path predictions found.</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    <div style="background:white; padding:30px; border-radius:20px; box-shadow:0 6px 20px rgba(0,0,0,0.06);">
+        <h2 style="margin-bottom:20px; color:#2c3e6b;">Critical-Path-Related Relationships</h2>
+
+        <table style="width:100%; border-collapse:collapse;">
+            <thead>
+                <tr>
+                    <th style="text-align:left; padding:10px; border-bottom:1px solid #ddd;">Subtask A</th>
+                    <th style="text-align:left; padding:10px; border-bottom:1px solid #ddd;">Subtask B</th>
+                    <th style="text-align:left; padding:10px; border-bottom:1px solid #ddd;">Predicted Relationship</th>
+                    <th style="text-align:left; padding:10px; border-bottom:1px solid #ddd;">Confidence</th>
+                    <th style="text-align:left; padding:10px; border-bottom:1px solid #ddd;">Assigned Employee A</th>
+                    <th style="text-align:left; padding:10px; border-bottom:1px solid #ddd;">Assigned Employee B</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for row in relationship_rows %}
+                <tr>
+                    <td style="padding:10px; border-bottom:1px solid #eee;">{{ row.subtask_a }}</td>
+                    <td style="padding:10px; border-bottom:1px solid #eee;">{{ row.subtask_b }}</td>
+                    <td style="padding:10px; border-bottom:1px solid #eee;">{{ row.predicted_relationship }}</td>
+                    <td style="padding:10px; border-bottom:1px solid #eee;">{{ row.confidence }}</td>
+                    <td style="padding:10px; border-bottom:1px solid #eee;">{{ row.employee_a }}</td>
+                    <td style="padding:10px; border-bottom:1px solid #eee;">{{ row.employee_b }}</td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <td colspan="6" style="padding:10px; color:#777;">No critical path dependencies identified between assigned subtasks.</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+</div>
+{% endblock %}

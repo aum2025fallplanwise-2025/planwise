@@ -1,0 +1,50 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>PlanWise</title>
+    <link rel="stylesheet" href="{% static 'css/home.css' %}?v=9">
+</head>
+
+<body>
+
+<div class="home-container">
+
+    <h1 class="home-title">
+        PlanWise: Transformer-Based Estimation of Time and Resources for Software Projects
+    </h1>
+
+    <div class="cards">
+
+       <a href="{% url 'projects' %}" class="card">
+            <img src="{% static 'images/icon_projects.PNG' %}">
+            <span>Projects</span>
+        </a>
+
+        <a href="{% url 'tasks' %}" class="card">
+            <img src="{% static 'images/icon_tasks.PNG' %}">
+            <span>Tasks</span>
+        </a>
+
+        <a href="{% url 'employees' %}" class="card">
+            <img src="{% static 'images/icon_employees.PNG' %}">
+            <span>Employees</span>
+        </a>
+
+        <a href="{% url 'scheduling_home' %}" class="card">
+            <img src="{% static 'images/icon_scheduling.PNG' %}">
+            <span>Scheduling</span>
+        </a>
+
+        <a href="{% url 'training' %}" class="card">
+            <img src="{% static 'images/icon_training.PNG' %}">
+            <span>Training</span>
+        </a>
+
+    </div>
+
+</div>
+
+</body>
+</html>

@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <title>PlanWise</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(180deg, #f8fbff 0%, #eef3ff 40%, #f8fbff 100%);
+            margin: 0;
+            min-height: 100vh;
+        }
+
+        .navbar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 15px 40px;
+            background: white;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .logo {
+            font-weight: bold;
+            font-size: 22px;
+            color: #2c3e6b;
+            text-decoration: none;
+        }
+
+        .menu {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+        }
+
+        .menu a {
+            text-decoration: none;
+            color: #2c3e6b !important;
+            font-weight: 500;
+            padding: 10px 20px;
+            border-radius: 25px;
+            transition: all 0.3s ease;
+            background: transparent;
+        }
+
+        .menu a:hover {
+            background: #f0f4ff;
+        }
+
+        .menu a.active {
+            background: #dfe7ff !important;
+            color: #2c3e6b !important;
+        }
+
+        .logout-btn {
+            color: #e74c3c !important;
+            background: transparent !important;
+            border: none !important;
+        }
+
+        .logout-btn:hover {
+            background: #fff0f0 !important;
+        }
+
+        .container {
+            padding: 40px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+    </style>
+</head>
+<body>
+
+<div class="navbar">
+    <a href="{% url 'home' %}" class="logo">PlanWise</a>
+
+    <div class="menu">
+        <a href="{% url 'home' %}" class="{% if request.resolver_match.url_name == 'home' %}active{% endif %}">Home</a>
+        <a href="{% url 'projects' %}" class="{% if request.resolver_match.url_name == 'projects' %}active{% endif %}">Projects</a>
+        <a href="{% url 'tasks' %}" class="{% if request.resolver_match.url_name == 'tasks' %}active{% endif %}">Tasks</a>
+        <a href="{% url 'employees' %}" class="{% if request.resolver_match.url_name == 'employees' %}active{% endif %}">Employees</a>
+        <a href="{% url 'scheduling_home' %}" class="{% if request.resolver_match.url_name == 'scheduling_home' %}active{% endif %}">Scheduling</a>
+        <a href="{% url 'training' %}" class="{% if request.resolver_match.url_name == 'training' %}active{% endif %}">Training</a>
+        <a href="{% url 'logout' %}" class="logout-btn">Logout</a>
+    </div>
+</div>
+
+<div class="container">
+    {% block content %}
+    {% endblock %}
+</div>
+
+</body>
+</html>
