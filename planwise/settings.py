@@ -136,3 +136,5 @@ LOGOUT_REDIRECT_URL = "landing"
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 STATIC_ROOT = BASE_DIR / 'staticfiles'
+
+ALLOWED_HOSTS = ['planwisegraduationprojectce477.pythonanywhere.com', 'localhost', '127.0.0.1']
